@@ -20,7 +20,7 @@ contract PlayerBToken is ERC20 {
     constructor(uint256 amount) ERC20("PlayerB", "PB") {
         console.log(
             unicode"💸💸💸MINT-Player B💸💸💸",
-            "Deploying a marketToken with initial supply of",
+            "constructor : MarketToken B with initial supply of",
             amount
         );
         _mint(msg.sender, amount * 10 ** 18);

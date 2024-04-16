@@ -14,6 +14,10 @@
     "@balancer-labs/v2-solidity-utils": "^4.0.0",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@openzeppelin/contracts": "^4.9.6",
-    "hardhat": "^2.22.2"
+    "hardhat": "^2.22.2",
+    "hardhat-deploy": "^0.12.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }
