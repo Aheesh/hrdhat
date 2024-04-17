@@ -18,11 +18,23 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     autoMine: true,
   });
 
-  const deployment = await hre.deployments.get("ControllerFactory");
-  console.log("deployed contract address ===", deployment.address);
+  const deploymentA = await hre.deployments.get("PlayerAToken");
+  console.log(
+    "deployed contract address 🤾🏻‍♂️ Token A 🤾🏻‍♂️ ===",
+    deploymentA.address
+  );
 
-  const deploymentA = await hre.deployments.get("ControllerFactory");
-  console.log("deployed contract address ===", deployment.address);
+  const deploymentB = await hre.deployments.get("PlayerBToken");
+  console.log(
+    "deployed contract address 🤽🏻‍♀️ Token B 🤽🏻‍♀️===",
+    deploymentB.address
+  );
+
+  const deployment = await hre.deployments.get("ControllerFactory");
+  console.log(
+    "deployed contract address 🏭 Controller Factory 🏭 === 🏭",
+    deployment.address
+  );
 };
 
 export default func;
