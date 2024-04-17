@@ -2,7 +2,7 @@
 
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { PlayerAToken } from "../typechain-types/contracts/PlayerAToken";
+//import { PlayerAToken } from "../typechain-types/contracts/PlayerAToken";
 
 const deployYourContractA: DeployFunction = async function (
   hre: HardhatRuntimeEnvironment
