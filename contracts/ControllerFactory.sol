@@ -76,8 +76,17 @@ contract ControllerFactory is Ownable {
         require(!isDisabled, "ControllerFactory: Factory is disabled");
 
         console.log(
-            "ControllerFactory create(): ManagedPoolFactory",
+            "ControllerFactory create() require !isDisabled ",
+            isDisabled
+        );
+        console.log(
+            "ControllerFactory create() 1 :Name,  ManagedPoolFactory",
+            minimalParams.name,
             managedPoolFactory
+        );
+        console.log(
+            "!IManagedPoolFactory",
+            IManagedPoolFactory(managedPoolFactory).isDisabled()
         );
         require(
             !IManagedPoolFactory(managedPoolFactory).isDisabled(),
