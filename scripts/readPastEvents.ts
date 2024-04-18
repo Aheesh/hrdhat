@@ -3,7 +3,7 @@ dotenv.config();
 import { ethers } from "ethers";
 import controllerABI from "../artifacts/contracts/ControllerFactory.sol/ControllerFactory.json";
 
-//typescript code for reading past event[0] for ControllerFactory contract deployed on Sepolia
+//typescript code for reading past events for ControllerFactory contract deployed on Sepolia
 
 async function readPastEvents() {
   const provider = new ethers.AlchemyProvider(
@@ -20,6 +20,12 @@ async function readPastEvents() {
   const parsedLog = await contract.queryFilter(filter);
   const eventArguments = iface.parseLog(parsedLog[0]);
   console.log("Event Arguments:", eventArguments);
-}
+  console.log(
+    "Event Arguments Broken down:",
+    eventArguments?.args[0],
+    eventArguments?.args[1]
+  );
 
-readPastEvents();
+  //return eventArguments?.args[1];
+}
+export default readPastEvents;
