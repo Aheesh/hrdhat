@@ -12,13 +12,14 @@
   "devDependencies": {
     "@balancer-labs/v2-interfaces": "^0.4.0",
     "@balancer-labs/v2-solidity-utils": "^4.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@openzeppelin/contracts": "^4.9.6",
+    "ethers": "^6.12.0",
     "hardhat": "^2.22.2",
     "hardhat-deploy": "^0.12.2"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "ethers": "^6.11.1"
+    "dotenv": "^16.4.5"
   }
 }

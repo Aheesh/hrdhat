@@ -5,6 +5,7 @@ import "@nomicfoundation/hardhat-toolbox";
 import "hardhat-deploy";
 
 const providerApiKey = process.env.ALCHEMY_API_KEY;
+const providerInfuraKey = process.env.INFURA_API_KEY;
 // If not set, it uses the hardhat account 0 private key.
 const deployerPrivateKey =
   process.env.DEPLOYER_PRIVATE_KEY ??
@@ -27,10 +28,13 @@ const config: HardhatUserConfig = {
   networks: {
     // View the networks that are pre-configured.
     // If the network you are looking for is not here you can add new network settings
+    // url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
+
     hardhat: {
       loggingEnabled: true,
       forking: {
         url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
+        blockNumber: 12272146,
         enabled: process.env.MAINNET_FORKING_ENABLED === "true",
       },
     },
