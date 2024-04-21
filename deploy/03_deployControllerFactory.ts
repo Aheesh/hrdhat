@@ -89,16 +89,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const parsedLog = iface.parseLog(log);
     return parsedLog;
   });
-  let poolId: string;
-  // Now, `events` is an array of `LogDescription` objects.
-  // You can access the event data like this:
-  events.forEach((event) => {
-    if (event) {
-      console.log(event.name); // The name of the event
-      console.log(event.args.poolId); // An array of the event arguments
-      if (event.name === "ControllerCreated") poolId = event.args.poolId;
-    }
-  });
+  const poolId = events.find((event) => event?.name === "ControllerCreated")
+    ?.args.poolId;
   console.log(
     "🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵END of logs 🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵 "
   );
