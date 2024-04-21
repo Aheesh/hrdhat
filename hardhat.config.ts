@@ -34,8 +34,8 @@ const config: HardhatUserConfig = {
     hardhat: {
       loggingEnabled: true,
       forking: {
-        url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
-        blockNumber: 12272146,
+        url: `https://eth-mainnet.g.alchemy.com/v2/${providerApiKey}`,
+        blockNumber: 19685500,
         enabled: process.env.MAINNET_FORKING_ENABLED === "true",
       },
     },
