@@ -72,13 +72,6 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   ////////////////////////////////////////////////////////////////////////////
 
   //fetch poolId
-  //const logs = receipt.logs ;
-  //as EventLog[];
-
-  // logs.forEach((log) => {
-  //   console.log("\n****log**** \n", log);
-  // });
-
   console.log(
     "🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵Start of logs 🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵 "
   );
