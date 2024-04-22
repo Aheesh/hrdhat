@@ -68,26 +68,28 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     await ContollerFactoryContract.create(minimalParams)
   ).wait()) as unknown as ContractTransactionReceipt;
 
-  console.log("03 deploy script -- receipt", receipt);
+  console.log("03 deploy script -- receipt tx hash", receipt.hash);
   ////////////////////////////////////////////////////////////////////////////
 
   //fetch poolId
   console.log(
-    "🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵Start of logs 🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵 "
+    "🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 START - parsing logs 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 "
   );
 
   const iface = new ethers.Interface(controllerABI.abi);
-  // Parse the logs
+  // Parse the logs for ControllerCreated event
   const events = receipt.logs.map((log) => {
     const parsedLog = iface.parseLog(log);
     return parsedLog;
   });
   const poolId = events.find((event) => event?.name === "ControllerCreated")
     ?.args.poolId;
+
+  console.log("PoolId 🏊 🏊 🏊 ===>>>>> 🏊 🏊 🏊", poolId);
+
   console.log(
-    "🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵END of logs 🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵 "
+    "🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 END of parsing logs 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 🪵 "
   );
-  console.log("PoolId ===>>>>>", poolId);
 
   //deploy controller
   const deploymentController = await deploy("Controller", {
@@ -104,4 +106,4 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 };
 
 export default func;
-func.tags = ["ControllerFactory"];
+func.tags = ["ControllerFactory", "Controller"];
