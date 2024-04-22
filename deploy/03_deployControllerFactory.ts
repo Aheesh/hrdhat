@@ -1,9 +1,10 @@
 //Deploy ControllerFactory contract
 
-import { ContractTransactionReceipt } from "ethers";
+import { ContractTransactionReceipt, EventLog } from "ethers";
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { ControllerFactory } from "../typechain-types/contracts/ControllerFactory";
+import controllerABI from "../artifacts/contracts/ControllerFactory.sol/ControllerFactory.json";
 import { ethers } from "hardhat";
 
 const vaultAddress = "0xBA12222222228d8Ba445958a75a0704d566BF2C8";
@@ -44,7 +45,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const minimalParams: ControllerFactory.MinimalPoolParamsStruct = {
     name: "GameToken",
     symbol: "GT",
-    tokens: [deploymentA.address, deploymentB.address],
+    tokens: [deploymentB.address, deploymentA.address],
     normalizedWeights: ["500000000000000000", "500000000000000000"],
     swapFeePercentage: "10000000000000000",
     swapEnabledOnStart: true,
@@ -59,15 +60,47 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     deployment.address
   );
   console.log(
-    "*******ControllerFactory *******",
+    "03 deploy script *******ControllerFactory *******",
     await ContollerFactoryContract.isDisabled()
   );
-  // const receipt = (await (
-  //   await ContollerFactoryContract.create(minimalParams)
-  // ).wait()) as unknown as ContractTransactionReceipt;
 
-  // console.log("receipt", receipt);
-  //////////////////////////////////////////////////////////////////////////////
+  const receipt = (await (
+    await ContollerFactoryContract.create(minimalParams)
+  ).wait()) as unknown as ContractTransactionReceipt;
+
+  console.log("03 deploy script -- receipt", receipt);
+  ////////////////////////////////////////////////////////////////////////////
+
+  //fetch poolId
+  console.log(
+    "🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵Start of logs 🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵 "
+  );
+
+  const iface = new ethers.Interface(controllerABI.abi);
+  // Parse the logs
+  const events = receipt.logs.map((log) => {
+    const parsedLog = iface.parseLog(log);
+    return parsedLog;
+  });
+  const poolId = events.find((event) => event?.name === "ControllerCreated")
+    ?.args.poolId;
+  console.log(
+    "🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵END of logs 🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵🪵 "
+  );
+  console.log("PoolId ===>>>>>", poolId);
+
+  //deploy controller
+  const deploymentController = await deploy("Controller", {
+    from: deployer,
+    args: [vaultAddress, poolId],
+    log: true,
+    autoMine: true,
+  });
+
+  console.log(
+    "deployed contract address 🏭 Controller 🏭 === 🏭",
+    deploymentController.address
+  );
 };
 
 export default func;
