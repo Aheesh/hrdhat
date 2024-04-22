@@ -48,4 +48,33 @@ contract Controller {
     function getVault() public view returns (IVault) {
         return _vault;
     }
+
+    //function to get the pool tokens from the vault calling the IVault.getPoolTokens function
+    function getPoolTokens()
+        public
+        view
+        returns (address[] memory, uint256[] memory, uint256)
+    {
+        IERC20[] memory tokenContracts;
+        uint256[] memory balances;
+        uint256 totalBalance;
+
+        (tokenContracts, balances, totalBalance) = _vault.getPoolTokens(
+            _poolId
+        );
+
+        address[] memory tokens = new address[](tokenContracts.length);
+        for (uint i = 0; i < tokenContracts.length; i++) {
+            tokens[i] = address(tokenContracts[i]);
+        }
+
+        return (tokens, balances, totalBalance);
+    }
+
+    //Function to allow EOA to join the pool calling the IVault.joinPool function
+    // function joinPool(uint256 amount, uint256[] calldata maxAmountsIn)
+    //     external
+    // {
+    //     _vault.joinPool(_poolId, msg.sender, msg.sender , maxAmountsIn);
+    // }
 }
